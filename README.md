@@ -17,3 +17,49 @@ Analyzed My Swiggy Order History 🍔 &amp; found some tasty insights. nom nom. 
 The main objectives of this project are:
 - To extract and analyze historical food order data from https://www.swiggy.com/
 - To visualize this data in a Tableau Dashboard.
+
+## Solution Approach
+
+### 1. Data Extraction
+
+I extracted the data from a website using a JavaScript snippet. This process involved learning JavaScript basics and learning about JSON files, parsing data.
+
+On https://www.swiggy.com/my-account page open chrome Dev Tools and look at some network requests and order_id is the header. 
+This simple JS snippet was able to fetch order data using session cookies.
+```javascript
+var xmlHttp = new XMLHttpRequest();
+xmlHttp.open( “GET”, “https://www.swiggy.com/mapi/order/all?order_id=", false );
+xmlHttp.send( null );
+console.log(xmlHttp.responseText);
+```
+
+This is the order_id response: 
+![Screenshot 2024-05-27 110541](https://github.com/guruuvai/Swiggy-Order-History-Analysis/assets/67874401/24330cd3-b53b-4772-8047-d42788c9e175)
+
+Now to aggregate all this data: 
+```javascript
+order_array=[]![Screenshot 2024-05-27 111106](https://github.com/guruuvai/Swiggy-Order-History-Analysis/assets/67874401/eea1a80e-9328-4be2-b906-cd6c7b31d352)
+
+order_id=''
+page = 1
+try {
+    while(true){
+        var xmlHttp = new XMLHttpRequest()
+        xmlHttp.open( “GET”, “https://www.swiggy.com/mapi/order/all?order_id="+order_id, false )
+        xmlHttp.send( null )
+        resText=xmlHttp.responseText
+        var resJSON = JSON.parse(resText)
+        order_id=resJSON.data.orders[resJSON.data.orders.length-1].order_id
+        order_array=order_array.concat(resJSON.data.orders)
+        console.log(“On page: “+page+” with last order id: “+order_id)
+        page++
+    }
+}
+catch(err) {
+    console.log(order_array)
+}
+```
+
+![Screenshot 2024-05-27 111106](https://github.com/guruuvai/Swiggy-Order-History-Analysis/assets/67874401/b133e712-27bc-4b07-abb4-8db9ea750e68)
+
+
