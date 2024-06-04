@@ -34,18 +34,18 @@ console.log(xmlHttp.responseText);
 ```
 
 This is the order_id response: 
-![Screenshot 2024-05-27 110541](https://github.com/guruuvai/Swiggy-Order-History-Analysis/assets/67874401/24330cd3-b53b-4772-8047-d42788c9e175)
+![Screenshot 2024-05-27 110541](https://github.com/guruuvai/Swiggy-Order-History-Analysis/assets/67874401/dd778a8e-fe7e-4b1a-9548-bc2a16f64eea)
+
 
 Now to aggregate all this data: 
 ```javascript
-order_array=[]![Screenshot 2024-05-27 111106](https://github.com/guruuvai/Swiggy-Order-History-Analysis/assets/67874401/eea1a80e-9328-4be2-b906-cd6c7b31d352)
-
-order_id=''
+order_array=[]
+order_id=’’
 page = 1
 try {
     while(true){
         var xmlHttp = new XMLHttpRequest()
-        xmlHttp.open( “GET”, “https://www.swiggy.com/mapi/order/all?order_id="+order_id, false )
+        xmlHttp.open( “GET”, “https://www.swiggy.com/dapi/order/all?order_id="+order_id, false )
         xmlHttp.send( null )
         resText=xmlHttp.responseText
         var resJSON = JSON.parse(resText)
@@ -59,7 +59,6 @@ catch(err) {
     console.log(order_array)
 }
 ```
-
 ![Screenshot 2024-05-27 111106](https://github.com/guruuvai/Swiggy-Order-History-Analysis/assets/67874401/b133e712-27bc-4b07-abb4-8db9ea750e68)
 
 
