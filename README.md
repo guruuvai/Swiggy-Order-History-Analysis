@@ -70,7 +70,7 @@ Paste it in notepad and save. And, now you have your entire Swiggy history.
 
 ### 2. JSON Parsing with Python
 
-```
+``` Python
 import json
 import csv
 
